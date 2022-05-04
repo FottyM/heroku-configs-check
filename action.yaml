@@ -1,0 +1,19 @@
+name: Heroku env check
+author: ${{ secrets.github_username }}
+branding:
+  icon: "camera"
+  color: green
+description: >
+  Check if the env variables are set in the Heroku environment
+runs:
+  using: node16
+  main: dist/main.js
+inputs:
+  heroku-api-key:
+    description: Heroku API key
+    required: true
+    default: ${{ secrets.HEROKU_API_KEY }}
+  app-name:
+    description: Heroku app name
+    required: true
+    default: ${{ secrets.HEROKU_APP_NAME }}
