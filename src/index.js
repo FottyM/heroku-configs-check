@@ -10,11 +10,10 @@ const compareConfigs = require('./lib/compare-configs');
 
 	const diff = await compareConfigs(herokuApiToken, herokuAppName, localConfigsPath);
 
-	if (diff.length > 0) {
-		core.setOutput('missing-env-vars', diff);
-		core.setFailed(`The following configs are not present in the Heroku app: ${diff.join(', ')}`);
+	if (diff.length) {
+		core.setFailed(`The following configs are not present in the Heroku app, ${herokuAppName} : ${diff.join(', ')}`);
 	} else {
-		core.info('All configs are present in the Heroku app.');
+		core.info(`All configs are present in the Heroku app, ${herokuAppName}.`);
 	}
 })().catch(err => core.setFailed(err.message));
 
