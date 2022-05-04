@@ -1,5 +1,5 @@
 name: Heroku env check
-author: ${{ secrets.github_username }}
+author: Fortunat Mutunda
 branding:
   icon: "camera"
   color: green
