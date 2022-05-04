@@ -8,6 +8,7 @@ async function getLocalConfigPath(configsPath) {
 		.replace(/({|}|module.exports=|;)/g, '')
 		.split(',')
 		.filter(Boolean)
+		.filter(slice => slice.includes('process.env'))
 		.map(slice => slice.replace(/[^:]+:/g, '').replace(/process.env./g, ''))
 		.filter(slice => !slice.includes('??') && !slice.includes('||'));
 }
