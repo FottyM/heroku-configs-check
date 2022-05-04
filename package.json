@@ -4,7 +4,7 @@
   "description": "Action to check if the baby is sleeping",
   "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build src -o dist",
+    "build": "ncc build src -o dist -m",
     "watch": "npm run build -- --watch",
     "prepare": "husky install"
   },
