@@ -5,7 +5,7 @@ async function getLocalConfigPath(configsPath) {
 	return data.toString()
 		.replace(/\s/g, '')
 		.replace(/\n/g, '')
-		.replace(/({|}|module.exports=|;)/g, '')
+		.replace(/({|}|module.exports=|;|process.env.NODE_ENV)/g, '')
 		.split(',')
 		.filter(Boolean)
 		.filter(slice => slice.includes('process.env'))
