@@ -3,4 +3,4 @@
 
 npm run build
 npx eslint src/ --fix
-git add dist/
+git add dist
