@@ -12,11 +12,9 @@ inputs:
   heroku-api-key:
     description: Heroku API key
     required: true
-    default: ${{ secrets.HEROKU_API_KEY }}
   heroku-app-name:
     description: Heroku app name
     required: true
-    default: ${{ secrets.HEROKU_APP_NAME }}
   config-path:
     description: Relative path to the config file from the root of the project
     required: true
