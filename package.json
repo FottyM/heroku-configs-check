@@ -1,6 +1,6 @@
 {
   "name": "baby-action",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Action to check if the baby is sleeping",
   "main": "dist/index.js",
   "scripts": {

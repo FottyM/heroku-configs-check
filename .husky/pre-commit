@@ -3,3 +3,5 @@
 
 npm run build
 npx eslint src/ --fix
+git add build/
+git tag -a v$(npm run version) -m "Release v$(npm run version)"
