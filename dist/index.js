@@ -1566,250 +1566,6 @@ exports.checkBypass = checkBypass;
 
 /***/ }),
 
-/***/ 244:
-/***/ ((module) => {
-
-
-/**
- * slice() reference.
- */
-
-var slice = Array.prototype.slice;
-
-/**
- * Expose `co`.
- */
-
-module.exports = co['default'] = co.co = co;
-
-/**
- * Wrap the given generator `fn` into a
- * function that returns a promise.
- * This is a separate function so that
- * every `co()` call doesn't create a new,
- * unnecessary closure.
- *
- * @param {GeneratorFunction} fn
- * @return {Function}
- * @api public
- */
-
-co.wrap = function (fn) {
-  createPromise.__generatorFunction__ = fn;
-  return createPromise;
-  function createPromise() {
-    return co.call(this, fn.apply(this, arguments));
-  }
-};
-
-/**
- * Execute the generator function or a generator
- * and return a promise.
- *
- * @param {Function} fn
- * @return {Promise}
- * @api public
- */
-
-function co(gen) {
-  var ctx = this;
-  var args = slice.call(arguments, 1)
-
-  // we wrap everything in a promise to avoid promise chaining,
-  // which leads to memory leak errors.
-  // see https://github.com/tj/co/issues/180
-  return new Promise(function(resolve, reject) {
-    if (typeof gen === 'function') gen = gen.apply(ctx, args);
-    if (!gen || typeof gen.next !== 'function') return resolve(gen);
-
-    onFulfilled();
-
-    /**
-     * @param {Mixed} res
-     * @return {Promise}
-     * @api private
-     */
-
-    function onFulfilled(res) {
-      var ret;
-      try {
-        ret = gen.next(res);
-      } catch (e) {
-        return reject(e);
-      }
-      next(ret);
-    }
-
-    /**
-     * @param {Error} err
-     * @return {Promise}
-     * @api private
-     */
-
-    function onRejected(err) {
-      var ret;
-      try {
-        ret = gen.throw(err);
-      } catch (e) {
-        return reject(e);
-      }
-      next(ret);
-    }
-
-    /**
-     * Get the next value in the generator,
-     * return a promise.
-     *
-     * @param {Object} ret
-     * @return {Promise}
-     * @api private
-     */
-
-    function next(ret) {
-      if (ret.done) return resolve(ret.value);
-      var value = toPromise.call(ctx, ret.value);
-      if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
-      return onRejected(new TypeError('You may only yield a function, promise, generator, array, or object, '
-        + 'but the following object was passed: "' + String(ret.value) + '"'));
-    }
-  });
-}
-
-/**
- * Convert a `yield`ed value into a promise.
- *
- * @param {Mixed} obj
- * @return {Promise}
- * @api private
- */
-
-function toPromise(obj) {
-  if (!obj) return obj;
-  if (isPromise(obj)) return obj;
-  if (isGeneratorFunction(obj) || isGenerator(obj)) return co.call(this, obj);
-  if ('function' == typeof obj) return thunkToPromise.call(this, obj);
-  if (Array.isArray(obj)) return arrayToPromise.call(this, obj);
-  if (isObject(obj)) return objectToPromise.call(this, obj);
-  return obj;
-}
-
-/**
- * Convert a thunk to a promise.
- *
- * @param {Function}
- * @return {Promise}
- * @api private
- */
-
-function thunkToPromise(fn) {
-  var ctx = this;
-  return new Promise(function (resolve, reject) {
-    fn.call(ctx, function (err, res) {
-      if (err) return reject(err);
-      if (arguments.length > 2) res = slice.call(arguments, 1);
-      resolve(res);
-    });
-  });
-}
-
-/**
- * Convert an array of "yieldables" to a promise.
- * Uses `Promise.all()` internally.
- *
- * @param {Array} obj
- * @return {Promise}
- * @api private
- */
-
-function arrayToPromise(obj) {
-  return Promise.all(obj.map(toPromise, this));
-}
-
-/**
- * Convert an object of "yieldables" to a promise.
- * Uses `Promise.all()` internally.
- *
- * @param {Object} obj
- * @return {Promise}
- * @api private
- */
-
-function objectToPromise(obj){
-  var results = new obj.constructor();
-  var keys = Object.keys(obj);
-  var promises = [];
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
-    var promise = toPromise.call(this, obj[key]);
-    if (promise && isPromise(promise)) defer(promise, key);
-    else results[key] = obj[key];
-  }
-  return Promise.all(promises).then(function () {
-    return results;
-  });
-
-  function defer(promise, key) {
-    // predefine the key in the result
-    results[key] = undefined;
-    promises.push(promise.then(function (res) {
-      results[key] = res;
-    }));
-  }
-}
-
-/**
- * Check if `obj` is a promise.
- *
- * @param {Object} obj
- * @return {Boolean}
- * @api private
- */
-
-function isPromise(obj) {
-  return 'function' == typeof obj.then;
-}
-
-/**
- * Check if `obj` is a generator.
- *
- * @param {Mixed} obj
- * @return {Boolean}
- * @api private
- */
-
-function isGenerator(obj) {
-  return 'function' == typeof obj.next && 'function' == typeof obj.throw;
-}
-
-/**
- * Check if `obj` is a generator function.
- *
- * @param {Mixed} obj
- * @return {Boolean}
- * @api private
- */
-function isGeneratorFunction(obj) {
-  var constructor = obj.constructor;
-  if (!constructor) return false;
-  if ('GeneratorFunction' === constructor.name || 'GeneratorFunction' === constructor.displayName) return true;
-  return isGenerator(constructor.prototype);
-}
-
-/**
- * Check for plain object.
- *
- * @param {Mixed} val
- * @return {Boolean}
- * @api private
- */
-
-function isObject(val) {
-  return Object == val.constructor;
-}
-
-
-/***/ }),
-
 /***/ 222:
 /***/ ((module, exports, __nccwpck_require__) => {
 
@@ -4101,16 +3857,15 @@ exports.debug = debug; // for test
 
 const getHerokuConfigs = __nccwpck_require__(844);
 const getLocalConfigs = __nccwpck_require__(20);
-const co = __nccwpck_require__(244);
 const path = __nccwpck_require__(17);
 
-function * compare(herokuApiToken, herokuAppName, localConfigsPath) {
-	const herokuConfigs = yield getHerokuConfigs(herokuApiToken, herokuAppName);
-	const localConfigs = yield getLocalConfigs(path.resolve(localConfigsPath));
+async function compare(herokuApiToken, herokuAppName, localConfigsPath) {
+	const herokuConfigs = await getHerokuConfigs(herokuApiToken, herokuAppName);
+	const localConfigs = await getLocalConfigs(path.resolve(localConfigsPath));
 	return localConfigs.filter(localConfig => !herokuConfigs.includes(localConfig));
 }
 
-module.exports = co.wrap(compare);
+module.exports = compare;
 
 
 /***/ }),
@@ -4118,11 +3873,10 @@ module.exports = co.wrap(compare);
 /***/ 20:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const {co} = __nccwpck_require__(244);
 const fs = __nccwpck_require__(843);
 
-function * getLocalConfigPath(configsPath) {
-	const data = yield fs.readFile(configsPath, 'utf8');
+async function getLocalConfigPath(configsPath) {
+	const data = await fs.readFile(configsPath, 'utf8');
 	return data.toString()
 		.replace(/\s/g, '')
 		.replace(/\n/g, '')
@@ -4133,7 +3887,7 @@ function * getLocalConfigPath(configsPath) {
 		.filter(slice => !slice.includes('??') && !slice.includes('||'));
 }
 
-module.exports = co.wrap(getLocalConfigPath);
+module.exports = getLocalConfigPath;
 
 
 /***/ }),
@@ -4141,16 +3895,15 @@ module.exports = co.wrap(getLocalConfigPath);
 /***/ 844:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const co = __nccwpck_require__(244);
 const Heroku = __nccwpck_require__(504);
 
-function * getHerokuEnvVars(token, name) {
+async function getHerokuEnvVars(token, name) {
 	const heroku = new Heroku({token});
-	const configs = yield heroku.get(`/apps/${name}/config-vars`);
+	const configs = await heroku.get(`/apps/${name}/config-vars`);
 	return Object.values(configs);
 }
 
-module.exports = co.wrap(getHerokuEnvVars);
+module.exports = getHerokuEnvVars;
 
 
 /***/ }),
@@ -4319,26 +4072,22 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(186);
 const compareConfigs = __nccwpck_require__(991);
 
-(function * () {
-	try {
-		const herokuApiToken = core.getInput('heroku-api-key');
-		const herokuAppName = core.getInput('heroku-app-name');
-		const localConfigsPath = core.getInput('config-path');
+(async function () {
+	const herokuApiToken = core.getInput('heroku-api-key');
+	const herokuAppName = core.getInput('heroku-app-name');
+	const localConfigsPath = core.getInput('config-path');
 
-		core.info('Comparing configs...');
+	core.info('Comparing configs...');
 
-		const diff = yield compareConfigs(herokuApiToken, herokuAppName, localConfigsPath);
+	const diff = await compareConfigs(herokuApiToken, herokuAppName, localConfigsPath);
 
-		if (diff.length > 0) {
-			core.setOutput('missing-env-vars', diff);
-			core.setFailed(`The following configs are not present in the Heroku app: ${diff.join(', ')}`);
-		} else {
-			core.info('All configs are present in the Heroku app.');
-		}
-	} catch (error) {
-		core.setFailed(error.message);
+	if (diff.length > 0) {
+		core.setOutput('missing-env-vars', diff);
+		core.setFailed(`The following configs are not present in the Heroku app: ${diff.join(', ')}`);
+	} else {
+		core.info('All configs are present in the Heroku app.');
 	}
-})();
+})().catch(err => core.setFailed(err.message));
 
 
 })();
