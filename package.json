@@ -1,10 +1,10 @@
 {
   "name": "baby-action",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Action to check if the baby is sleeping",
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build src/index.js -o dist/main.js",
+    "build": "ncc build src -o dist",
     "watch": "npm run build -- --watch",
     "prepare": "husky install"
   },
