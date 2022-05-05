@@ -13,7 +13,7 @@ const compareConfigs = require('./lib/compare-configs');
   core.info('Done comparing configs.');
 
   if (diff.length) {
-    core.setFailed(`The following configs are not present in the Heroku app: ${diff.join(', ')}`);
+    core.setFailed(`The following configs are not present in the Heroku app: ${diff.join(', ')}.`);
   } else {
     core.info('All configs are present in the Heroku app.');
   }
