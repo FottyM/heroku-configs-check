@@ -9,6 +9,8 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "prefer-template": "error"
+    "prefer-template": "error",
+    "no-tabs": "error",
+    "indent": ["error", 2]
   }
 }
