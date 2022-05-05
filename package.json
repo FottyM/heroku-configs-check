@@ -4,8 +4,9 @@
   "description": "Action to check if the baby is sleeping",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rimraf dist",
     "build": "ncc build src -o dist -m",
-    "watch": "npm run build -- --watch",
+    "watch": "npm run build:dev -- --watch",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -15,7 +16,8 @@
     "@actions/core": "^1.7.0",
     "@actions/github": "^5.0.1",
     "@vercel/ncc": "^0.33.4",
-    "heroku-client": "^3.1.0"
+    "heroku-client": "^3.1.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "^8.14.0",
