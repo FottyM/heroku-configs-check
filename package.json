@@ -4,9 +4,9 @@
   "description": "Action to check if the baby is sleeping",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist/",
     "build": "ncc build src -o dist -m",
-    "watch": "npm run build:dev -- --watch",
+    "watch": "npm run build -- --watch",
     "prepare": "husky install"
   },
   "keywords": [],
