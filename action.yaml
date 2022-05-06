@@ -18,6 +18,3 @@ inputs:
   config-path:
     description: Relative path to the config file from the root of the project
     required: true
-outputs:
-  missing-env-vars:
-    description: Missing env variables
