@@ -28,5 +28,5 @@ jobs:
         run: npm test
       - name: Release
         run: |
-          auto
+          npm run release
         
