@@ -1,5 +1,5 @@
-const getHerokuConfigs = require('../lib/heroku');
-const getLocalConfigs = require('../lib/configs');
+const getHerokuConfigs = require('./heroku');
+const getLocalConfigs = require('./configs');
 const path = require('path');
 
 async function compare(herokuApiToken, herokuAppName, localConfigsPath) {

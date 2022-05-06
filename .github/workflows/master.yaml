@@ -1,12 +1,12 @@
-name: Merge request
+name: Merge into master
 
 on:
-  pull_request:
-    branches: ['**']
+  push:
+    branches: ['master']
 
 jobs:
-  test:
-    name: Test
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -26,3 +26,7 @@ jobs:
         run: npm install
       - name: Run Tests
         run: npm test
+      - name: Release
+        run: |
+          npm run release
+        
