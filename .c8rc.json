@@ -1,0 +1,11 @@
+{
+    "reporter": [
+        "lcov"
+    ],
+    "skip-full": true,
+    "clean": true,
+    "check-coverage": true,
+    "lines": 100,
+    "statements": 100,
+    "functions": 100
+}
