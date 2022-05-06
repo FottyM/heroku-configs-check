@@ -15,8 +15,7 @@ jobs:
           
       - name: Setup Node
         uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
+
       - uses: JasonEtco/build-and-tag-action@v2
         env:
           GITHUB_TOKEN: ${{ github.token }}
