@@ -28,6 +28,7 @@ jobs:
         run: npm test
       - name: Release
         run: |
+          git fetch --tags
           npm run release
         env:
           GITHUB_TOKEN: ${{ github.token }}
