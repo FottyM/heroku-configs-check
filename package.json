@@ -8,7 +8,7 @@
     "build": "ncc build src -o dist -m",
     "watch": "npm run build -- --watch -d",
     "prepare": "husky install",
-    "test": "c8 ava",
+    "test": "c8 ava | tap-difflet",
     "test:watch": "ava --watch",
     "release": "auto shipit"
   },
@@ -31,7 +31,7 @@
     "eslint": "^8.14.0",
     "eslint-config-xo": "^0.40.0",
     "husky": "^7.0.0",
-    "rewiremock": "^3.14.3",
+    "mockery": "^2.1.0",
     "tap-difflet": "^0.7.2",
     "tap-spec": "^5.0.0"
   }
