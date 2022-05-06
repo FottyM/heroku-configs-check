@@ -27,9 +27,6 @@ jobs:
       - name: Run Tests
         run: npm test
       - name: Release
-        run: |
-          git fetch --tags
-          npm run release
+        uses: JasonEtco/build-and-tag-action@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        
