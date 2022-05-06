@@ -2,7 +2,7 @@
 
 The reason is simple, to prevent the user from deploying to Heroku then realizing they forgot to add some new environment variables, as a result the app will crash. So, in order to prevent this, we can add a check to make sure the environment variables are set before we deploy to Heroku with this GitHub action.
 
-_*Example*:_
+### Usage
 
 Given you have a file called `configs.js` with the following content, and you add one more environment variable called `MY_VARIABLE`. Then you forget to add this variable in your Heroku environment variables.
 
@@ -16,7 +16,7 @@ module.exports = {
 };
 ```
 
-### Example workflow
+_*Example workflow*_
 
 ```yaml
 name: Check Heroku Environment Variables
