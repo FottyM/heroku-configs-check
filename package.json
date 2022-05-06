@@ -1,5 +1,5 @@
 {
-  "name": "baby-action",
+  "name": "heroku-configs-check",
   "version": "1.4.0",
   "description": "Action to check if the baby is sleeping",
   "main": "dist/index.js",
@@ -32,6 +32,6 @@
     "eslint-config-xo": "^0.40.0",
     "husky": "^7.0.0",
     "tap-difflet": "^0.7.2",
-    "tap-spec": "^5.0.0"
+    "tap-spec": "^2.2.2"
   }
 }
