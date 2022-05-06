@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.release.tag_name }}
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v3
         with:
@@ -28,7 +26,3 @@ jobs:
         run: npm install
       - name: Run Tests
         run: npm test
-      - name: Release
-        uses: JasonEtco/build-and-tag-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
