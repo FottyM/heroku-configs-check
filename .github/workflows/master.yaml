@@ -27,7 +27,9 @@ jobs:
       - name: Run Tests
         run: npm test
       - name: Publish to npm
-        run: npm publish
+        run: |
+          npm add user --username ${{ github.actor }} --email ${{ github.actor }}@users.npmjs.org
+          npm publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
