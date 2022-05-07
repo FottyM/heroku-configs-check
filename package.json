@@ -10,7 +10,7 @@
     "prepare": "husky install",
     "test": "c8 ava | tap-difflet",
     "test:watch": "ava --watch",
-    "publish": "semantic-release"
+    "release": "semantic-release"
   },
   "keywords": [],
   "author": "Fortunat Mutunda",
