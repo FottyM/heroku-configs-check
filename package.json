@@ -42,6 +42,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FottyM/heroku-configs-check.git"
+    "url": "git@github.com:FottyM/heroku-configs-check.git"
   }
 }
