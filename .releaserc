@@ -20,9 +20,3 @@ plugins:
           - CHANGELOG.md
 
 preset: angular
-
-dryRun: false
-
-ci: false
-
-# debug: true
