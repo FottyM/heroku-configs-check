@@ -45,7 +45,7 @@ jobs:
         with:
           heroku-app-name: ${{ secrets.HEROKU_APP_NAME }}
           heroku-api-key: ${{ secrets.HEROKU_API_KEY }}
-          config-path: ./configs.js # This can be .ts as well.
+          config-path: ./configs.js # This can be `.ts` as well.
 ```
 
 ### Configs
