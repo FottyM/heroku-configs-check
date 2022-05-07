@@ -28,8 +28,7 @@ jobs:
         run: npm test
       - name: Publish to npm
         run: |
-          npm add user --username ${{ github.actor }} --email ${{ github.actor }}@users.npmjs.org
-          npm publish
+          npm run semantic-release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
