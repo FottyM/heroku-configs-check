@@ -1,3 +1,8 @@
+![GitHub](https://img.shields.io/github/license/fottym/heroku-configs-check?style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fottym/heroku-configs-check/Merge%20into%20master?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/fottym/heroku-configs-check?logoColor=teal&style=for-the-badge)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/fottym/heroku-configs-check?style=for-the-badge)
+
 ## Why
 
 The reason is simple, to prevent the user from deploying to Heroku then realizing they forgot to add some new environment variables, as a result the app will crash. So, in order to prevent this, we can add a check to make sure the environment variables are set before we deploy to Heroku with this GitHub action.

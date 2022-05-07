@@ -26,3 +26,8 @@ jobs:
         run: npm install
       - name: Run Tests
         run: npm test
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
