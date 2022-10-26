@@ -40,7 +40,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: Validated variables
+      - name: Validate variables
         uses: FottyM/heroku-configs-check@v1.4.0
         with:
           heroku-app-name: ${{ secrets.HEROKU_APP_NAME }}
